@@ -6,3 +6,4 @@ dumbtv.conf
 launcher/build/
 launcher/*.keystore
 video/out/
+tests/__pycache__/
