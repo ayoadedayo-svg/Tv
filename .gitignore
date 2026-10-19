@@ -5,4 +5,4 @@ report/
 dumbtv.conf
 launcher/build/
 launcher/*.keystore
-video/out/
+video/
