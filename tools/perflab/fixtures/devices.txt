@@ -1,0 +1,3 @@
+List of devices attached
+test-tv    device product:G08_4K_US model:Smart_TV_Pro device:G08 transport_id:52
+test-frame    device product:astar_m86_8723cs model:AEEZO device:astar-m86_8723cs transport_id:6

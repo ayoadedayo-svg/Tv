@@ -1,0 +1,141 @@
+Tasks: 400 total,   2 running, 398 sleeping,   0 stopped,   0 zombie
+  Mem:  2451268K total,  2324920K used,   126348K free,     4568K buffers
+ Swap:   917500K total,   445508K used,   471992K free,   811920K cached
+400%cpu 110%user   0%nice 104%sys 184%idle   0%iow   0%irq   1%sirq   0%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+27515 u0_a102      20   0 1.7G 310M 160M S 59.7  12.9  69:38.29 com.google.android.youtube.tvunplugged
+  495 system       -3 -10 134M  14M 7.6M S 31.1   0.5 114:59.11 hwcomposer.merak
+  531 system       -3  -8 114M  21M  14M S 23.3   0.8  62:07.26 surfaceflinger
+ 1162 u0_a60        0 -20 1.4G 247M 139M S 20.7  10.3  13:44.04 com.google.android.apps.tv.launcherx
+15312 shell        20   0  17M 4.1M 3.3M R 15.5   0.1   0:00.18 top -b -n 3 -d 5 -m 40
+  445 mediacodec   20   0 131M 9.0M 6.6M S 12.9   0.3  43:20.50 android.hardware.media.c2@1.1-mediatek
+  399 root         RT   0    0    0    0 S 11.6   0.0  53:53.42 [pqu_module]
+  524 media        20   0  69M  10M 4.1M S 10.3   0.4  40:37.89 android.hardware.drm-service.widevine
+  152 logd         30  10  37M 6.1M 2.9M S 10.3   0.2   8:08.00 logd
+  483 audioserver  RT   0 108M  11M 7.0M S  9.0   0.4  60:51.93 vendor.mediatek.hardware.audio.service
+  400 root         20   0    0    0    0 S  7.7   0.0  36:14.80 [pqu_low_pri]
+  527 audioserver  20   0  99M  14M  10M R  5.1   0.5  48:33.13 audioserver
+  685 system       18  -2 2.5G 299M 221M S  3.8  12.5  16:29.82 system_server
+14738 root         RT   0    0    0    0 D  2.5   0.0   0:01.69 [vcu_vdec_dec]
+14732 root         RT   0    0    0    0 D  2.5   0.0   0:02.89 [vcu-tee-6d400]
+ 2873 u0_a52       20   0 1.2G  73M  59M S  2.5   3.0   3:21.64 com.google.android.apps.mediashell
+ 2393 system       20   0 1.2G  76M  53M S  2.5   3.1   3:10.16 com.tcl.ttvs
+  641 root         20   0 110M  11M 9.1M S  2.5   0.4   9:24.63 tcl_tv_display_service
+  491 system       20   0  38M 3.6M 3.3M S  2.5   0.1   5:03.77 vendor.mediatek.hardware.capture-V1-service
+  394 root         RT   0    0    0    0 S  2.5   0.0  11:19.41 [pqu_vsync_legac]
+  167 system       20   0  50M 3.6M 3.1M S  2.5   0.1  18:06.99 pqalg_service
+14737 root         RT   0    0    0    0 D  1.2   0.0   0:00.93 [vcu-tee-96df4]
+12691 root         20   0    0    0    0 I  1.2   0.0   0:00.82 [kworker/u8:0-mtk-vcodec-dec]
+12391 root         20   0    0    0    0 I  1.2   0.0   0:00.55 [kworker/0:2-events]
+ 2013 u0_a47       20   0 1.2G  50M  34M S  1.2   2.0   2:40.00 com.mediatek.airplaydaemon
+ 1285 system        0 -20 1.2G  50M  37M S  1.2   2.0   3:20.34 com.tcl.tvinput
+  650 mediacodec   20   0  75M 6.1M 4.7M S  1.2   0.2  12:06.01 media.swcodec oid.media.swcodec/bin/mediaswcodec
+  602 mdnsr        20   0  18M 2.5M 2.3M S  1.2   0.1   0:58.08 mdnsd
+  552 shell        20   0  61M 8.1M 3.5M S  1.2   0.3   4:09.01 adbd --root_seclabel=u:r:su:s0
+  461 root         RT   0    0    0    0 S  1.2   0.0   1:29.33 [crtc1_thread]
+  457 root         RT   0    0    0    0 S  1.2   0.0   6:12.64 [irq/65-DRM_MTK_]
+  425 root         20   0    0    0    0 S  1.2   0.0   3:01.76 [panel_vsync_thr]
+  409 root         RT   0    0    0    0 D  1.2   0.0   8:23.14 [pre_signal_task]
+  397 root         RT   0    0    0    0 S  1.2   0.0   6:17.52 [pqu_pq_vsync_th]
+   23 root         20   0    0    0    0 S  1.2   0.0   0:05.72 [ksoftirqd/1]
+14815 u0_a50       20   0 1.2G 113M  90M S  0.0   4.7   0:01.42 com.google.android.apps.tv.dreamx
+14761 u0_a50       20   0 1.3G 157M 132M S  0.0   6.5   0:01.99 com.google.android.apps.tv.dreamx:smarthome
+14465 root          0 -20    0    0    0 I  0.0   0.0   0:00.00 [kbase_event]
+14376 system       20   0 1.1G  58M  43M S  0.0   2.4   0:00.21 com.tcl.providers.config:cloud_service
+14159 root          0 -20    0    0    0 I  0.0   0.0   0:00.02 [kworker/3:1H-kblockd]
+
+
+
+Tasks: 400 total,   5 running, 395 sleeping,   0 stopped,   0 zombie
+  Mem:  2451268K total,  2319480K used,   131788K free,     4852K buffers
+ Swap:   917500K total,   444740K used,   472760K free,   812020K cached
+400%cpu 198%user   3%nice 180%sys  15%idle   0%iow   0%irq   4%sirq   0%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+27515 u0_a102      20   0 1.7G 310M 160M S  124  12.9  69:38.75 com.google.android.youtube.tvunplugged
+  495 system       -3 -10 134M  14M 7.6M S 41.2   0.5 114:59.35 hwcomposer.merak
+  531 system       -3  -8 114M  21M  14M S 24.0   0.8  62:07.44 surfaceflinger
+  445 mediacodec   20   0 131M 9.0M 6.6M S 18.8   0.3  43:20.60 android.hardware.media.c2@1.1-mediatek
+  524 media        20   0  69M  10M 4.1M S 17.4   0.4  40:37.97 android.hardware.drm-service.widevine
+  399 root         RT   0    0    0    0 S 16.6   0.0  53:53.51 [pqu_module]
+  483 audioserver  RT   0 108M  11M 7.0M S 13.8   0.4  60:52.00 vendor.mediatek.hardware.audio.service
+  400 root         20   0    0    0    0 R 12.0   0.0  36:14.86 [pqu_low_pri]
+  527 audioserver   4 -16  99M  14M  10M R  9.2   0.5  48:33.17 audioserver
+14732 root         RT   0    0    0    0 D  7.2   0.0   0:02.91 [vcu-tee-6d400]
+ 1162 u0_a60        0 -20 1.4G 249M 140M S  5.2  10.3  13:44.20 com.google.android.apps.tv.launcherx
+14738 root         RT   0    0    0    0 D  4.2   0.0   0:01.71 [vcu_vdec_dec]
+  167 system       20   0  50M 3.6M 3.1M S  3.8   0.1  18:07.01 pqalg_service
+  394 root         RT   0    0    0    0 S  3.4   0.0  11:19.43 [pqu_vsync_legac]
+  685 system       18  -2 2.5G 300M 221M S  3.2  12.5  16:29.85 system_server
+15312 shell        20   0  17M 4.4M 3.3M R  2.8   0.1   0:00.30 top -b -n 3 -d 5 -m 40
+  491 system       20   0  38M 3.6M 3.3M S  2.8   0.1   5:03.79 vendor.mediatek.hardware.capture-V1-service
+14737 root         RT   0    0    0    0 D  2.4   0.0   0:00.94 [vcu-tee-96df4]
+  650 mediacodec   20   0  75M 6.1M 4.7M S  2.4   0.2  12:06.02 media.swcodec oid.media.swcodec/bin/mediaswcodec
+  152 logd         30  10  37M 6.1M 2.9M S  2.4   0.2   8:08.08 logd
+  552 shell        20   0  60M 8.1M 3.5M S  2.2   0.3   4:09.02 adbd --root_seclabel=u:r:su:s0
+  409 root         RT   0    0    0    0 D  2.2   0.0   8:23.15 [pre_signal_task]
+ 2393 system       20   0 1.2G  76M  53M S  1.8   3.1   3:10.18 com.tcl.ttvs
+  641 root         20   0 110M  11M 9.1M S  1.8   0.4   9:24.65 tcl_tv_display_service
+ 2277 u0_a133      20   0 1.2G  69M  50M S  1.6   2.8   7:18.91 com.spotify.tv.android
+  397 root         RT   0    0    0    0 S  1.6   0.0   6:17.53 [pqu_pq_vsync_th]
+  457 root         RT   0    0    0    0 S  1.4   0.0   6:12.65 [irq/65-DRM_MTK_]
+ 2873 u0_a52       20   0 1.2G  73M  59M S  1.2   3.0   3:21.66 com.google.android.apps.mediashell
+  461 root         RT   0    0    0    0 D  1.2   0.0   1:29.34 [crtc1_thread]
+  458 root         RT   0    0    0    0 S  0.8   0.0   2:54.72 [irq/74-DRM_MTK_]
+ 2013 u0_a47       20   0 1.2G  50M  34M S  0.6   2.0   2:40.01 com.mediatek.airplaydaemon
+ 1285 system        0 -20 1.2G  50M  37M S  0.6   2.0   3:20.35 com.tcl.tvinput
+  425 root         20   0    0    0    0 S  0.6   0.0   3:01.77 [panel_vsync_thr]
+  408 root         20   0    0    0    0 D  0.6   0.0   2:46.50 [HDMI Rx task]
+13434 u0_a89       20   0 1.1G  78M  60M S  0.4   3.2   0:00.68 com.tcl.airplay2
+12691 root         20   0    0    0    0 D  0.4   0.0   0:00.83 [kworker/u8:0+mtk-vcodec-dec]
+ 9250 root         20   0    0    0    0 I  0.4   0.0   0:02.19 [kworker/u8:1-ext4-rsv-conversion]
+  796 root         20   0    0    0    0 D  0.4   0.0   1:22.27 [hdmi ctrl_statu]
+  481 media        20   0  49M 3.2M 3.0M S  0.4   0.1   1:32.51 vendor.mediatek.hardware.tv.aidltuner-service
+  436 system       20   0  25M 2.6M 2.6M S  0.4   0.1   2:39.77 android.hardware.tv.hdmi.earc-service.mediatek
+
+
+
+Tasks: 400 total,   3 running, 397 sleeping,   0 stopped,   0 zombie
+  Mem:  2451268K total,  2304320K used,   146948K free,     4880K buffers
+ Swap:   917500K total,   448048K used,   469452K free,   812152K cached
+400%cpu 165%user   5%nice 159%sys  58%idle   0%iow   0%irq  13%sirq   0%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+27515 u0_a102      20   0 1.6G 276M 151M R  114  11.5  69:44.96 com.google.android.youtube.tvunplugged
+  495 system       -3 -10 134M  14M 7.6M S 40.0   0.5 115:01.41 hwcomposer.merak
+  531 system       -3  -8 114M  21M  14M S 22.4   0.8  62:08.64 surfaceflinger
+  445 mediacodec   20   0 131M 9.0M 6.6M S 18.4   0.3  43:21.54 android.hardware.media.c2@1.1-mediatek
+  399 root         RT   0    0    0    0 S 16.8   0.0  53:54.34 [pqu_module]
+  524 media        20   0  69M  10M 4.1M S 16.4   0.4  40:38.84 android.hardware.drm-service.widevine
+  483 audioserver  RT   0 108M  11M 7.0M S 14.8   0.4  60:52.69 vendor.mediatek.hardware.audio.service
+  400 root         20   0    0    0    0 S 12.0   0.0  36:15.46 [pqu_low_pri]
+  527 audioserver  20   0  99M  14M  10M S 11.2   0.5  48:33.63 audioserver
+14732 root         RT   0    0    0    0 D  6.8   0.0   0:03.27 [vcu-tee-6d400]
+  685 system       18  -2 2.5G 301M 221M S  6.6  12.5  16:30.01 system_server
+ 1162 u0_a60        0 -20 1.4G 247M 139M S  4.8  10.3  13:44.46 com.google.android.apps.tv.launcherx
+14738 root         RT   0    0    0    0 D  4.0   0.0   0:01.92 [vcu_vdec_dec]
+  394 root         RT   0    0    0    0 S  3.6   0.0  11:19.60 [pqu_vsync_legac]
+  167 system       20   0  50M 3.6M 3.1M S  3.6   0.1  18:07.20 pqalg_service
+  491 system       20   0  38M 3.6M 3.3M S  2.8   0.1   5:03.93 vendor.mediatek.hardware.capture-V1-service
+15312 shell        20   0  19M 4.6M 3.4M R  2.6   0.1   0:00.44 top -b -n 3 -d 5 -m 40
+14737 root         RT   0    0    0    0 D  2.4   0.0   0:01.06 [vcu-tee-96df4]
+  152 logd         30  10  37M 6.1M 2.9M S  2.4   0.2   8:08.20 logd
+  650 mediacodec   20   0  75M 6.2M 4.9M S  2.2   0.2  12:06.14 media.swcodec oid.media.swcodec/bin/mediaswcodec
+  409 root         RT   0    0    0    0 D  2.0   0.0   8:23.26 [pre_signal_task]
+  641 root         20   0 110M  11M 9.1M S  1.8   0.4   9:24.74 tcl_tv_display_service
+  552 shell        20   0  61M 7.9M 3.5M S  1.8   0.3   4:09.13 adbd --root_seclabel=u:r:su:s0
+  457 root         RT   0    0    0    0 S  1.6   0.0   6:12.72 [irq/65-DRM_MTK_]
+  397 root         RT   0    0    0    0 S  1.6   0.0   6:17.61 [pqu_pq_vsync_th]
+ 2277 u0_a133      20   0 1.2G  69M  50M S  1.4   2.8   7:18.99 com.spotify.tv.android
+  461 root         RT   0    0    0    0 S  1.4   0.0   1:29.40 [crtc1_thread]
+ 2873 u0_a52       20   0 1.2G  74M  59M S  1.0   3.0   3:21.72 com.google.android.apps.mediashell
+ 2013 u0_a47       20   0 1.2G  50M  34M S  0.8   2.0   2:40.04 com.mediatek.airplaydaemon
+ 1285 system        0 -20 1.2G  50M  37M S  0.8   2.0   3:20.38 com.tcl.tvinput
+   35 root         20   0    0    0    0 S  0.8   0.0   2:56.44 [ksoftirqd/3]
+12691 root         20   0    0    0    0 D  0.6   0.0   0:00.85 [kworker/u8:0+mtk-vcodec-dec]
+ 2393 system       20   0 1.2G  77M  53M S  0.6   3.2   3:10.27 com.tcl.ttvs
+ 1180 network_stack 0 -20 1.1G  60M  42M S  0.6   2.5   0:59.02 com.android.networkstack.process
+  458 root         RT   0    0    0    0 S  0.6   0.0   2:54.76 [irq/74-DRM_MTK_]
+  436 system       20   0  25M 2.6M 2.6M S  0.6   0.1   2:39.79 android.hardware.tv.hdmi.earc-service.mediatek
+  425 root         20   0    0    0    0 R  0.6   0.0   3:01.80 [panel_vsync_thr]
+  408 root         20   0    0    0    0 D  0.6   0.0   2:46.53 [HDMI Rx task]
+  602 mdnsr        20   0  18M 2.5M 2.3M S  0.4   0.1   0:58.09 mdnsd
+  481 media        20   0  49M 3.2M 3.0M S  0.4   0.1   1:32.53 vendor.mediatek.hardware.tv.aidltuner-service

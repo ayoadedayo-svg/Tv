@@ -143,6 +143,10 @@ If anything looks wrong later, `scripts/restore.sh` puts it back.
 
 ## Run one piece at a time
 
+For optional CPU, memory, temperature and menu-response measurements, see
+[Performance measurements](docs/PERFORMANCE.md). This tool runs separately
+from the cleanup pass; visible key-press trials require an explicit opt-in.
+
 | Script | Does | Reboot needed |
 |---|---|---|
 | `preflight.sh` | Prints device facts, snapshots the current settings, shows the plan. Changes nothing else. | no |

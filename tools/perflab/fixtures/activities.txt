@@ -1,0 +1,2 @@
+    topResumedActivity=ActivityRecord{ecabcac u0 com.google.android.apps.tv.launcherx/.dashboard.DashboardHandler t1521}
+  ResumedActivity: ActivityRecord{ecabcac u0 com.google.android.apps.tv.launcherx/.dashboard.DashboardHandler t1521}

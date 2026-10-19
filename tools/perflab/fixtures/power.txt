@@ -1,0 +1,52 @@
+POWER MANAGER (dumpsys power)
+
+Power Manager State:
+  Settings power_manager_constants:
+    no_cached_wake_locks=true
+  mDirty=0x0
+  mWakefulness=Awake
+  mWakefulnessChanging=false
+  mIsPowered=true
+  mPlugType=1
+  mBatteryLevel=0
+  mDreamsBatteryLevelDrain=0
+  mDockState=0
+  mStayOn=false
+  mProximityPositive=false
+  mBootCompleted=true
+  mSystemReady=true
+  mEnhancedDischargeTimeElapsed=0
+  mLastEnhancedDischargeTimeUpdatedElapsed=0
+  mEnhancedDischargePredictionIsPersonalized=false
+  mHalAutoSuspendModeEnabled=false
+  mHalInteractiveModeEnabled=true
+  mWakeLockSummary=0x23
+  mNotifyLongScheduled=+53s622ms
+  mNotifyLongDispatched=-15s747ms
+  mNotifyLongNextCheck=(none)
+  mRequestWaitForNegativeProximity=false
+  mInterceptedPowerKeyForProximity=false
+  mSandmanScheduled=false
+  mBatteryLevelLow=false
+  mLightDeviceIdleMode=false
+  mDeviceIdleMode=false
+  mDeviceIdleWhitelist=[2000, 10025, 10032, 10052, 10055, 10060, 10069, 10111, 10117]
+  mDeviceIdleTempWhitelist=[]
+  mLowPowerStandbyActive=false
+  mLastWakeTime=27345431 (3479356 ms ago)
+  mLastSleepTime=19349204 (11475583 ms ago)
+  mLastSleepReason=power_button
+  mLastGlobalWakeTimeRealtime=61016214 (in 30191427 ms)
+  mLastGlobalSleepTimeRealtime=19639732 (11185055 ms ago)
+  mLastInteractivePowerHintTime=30078827 (745960 ms ago)
+  mLastScreenBrightnessBoostTime=0 (30824787 ms ago)
+  mScreenBrightnessBoostInProgress=false
+  mHoldingWakeLockSuspendBlocker=true
+  mHoldingDisplaySuspendBlocker=true
+  mLastFlipTime=0
+  mIsFaceDown=false
+
+Settings and Configuration:
+  mDecoupleHalAutoSuspendModeFromDisplayConfig=false
+  lastUserActivityTime=30078827 (745965 ms ago)
+  lastUserActivityTimeNoChangeLights=29324197 (1500600 ms ago)
