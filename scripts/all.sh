@@ -9,6 +9,8 @@ DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 FLAGS=("$@")
 CONF="$DIR/../dumbtv.conf"
 
+source "$DIR/lib.sh"
+
 # bash 3.2 (macOS) errors on "${FLAGS[@]}" when the array is empty under set -u.
 run() { "$@" ${FLAGS[@]+"${FLAGS[@]}"}; }
 
@@ -23,5 +25,9 @@ run "$DIR/debloat.sh"   || exit 1
 run "$DIR/lockdown.sh"  || exit 1
 run "$DIR/dnsfilter.sh" || exit 1
 run "$DIR/launcher.sh"  || exit 1
+# dumbtv.conf is guaranteed to exist here (configure.sh ran above when it was
+# missing), so load its answers — notably YOUTUBE — instead of testing an
+# environment variable that nothing ever sets.
+load_conf
 if [[ ${YOUTUBE:-0} == 1 ]]; then run "$DIR/youtube.sh" || exit 1; fi
 "$DIR/verify.sh"
