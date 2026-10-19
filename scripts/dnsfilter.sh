@@ -118,6 +118,15 @@ if [[ $DRY_RUN == 0 ]]; then
   # A stale index makes the app keep serving the previous list.
   dev "rm -rf $DIR/FILTERHOSTS.TXT.idx $DIR/IDX_OUTDATED" >/dev/null 2>&1
   "$ADB" -s "$SERIAL" push "$LIST" "$DIR/FILTERHOSTS.TXT" | tail -1 || die "push of FILTERHOSTS.TXT failed"
+  # Without a download-info file, the first boot after setup sees no
+  # FILTERHOSTS.TXT.DLD_CNT and schedules an immediate "update ASAP" from the
+  # (empty) update-URL list, replacing the pushed blocklist with a stub.
+  # Writing it here marks the pushed list as fresh. Format mirrors
+  # DNSFilterManager.writeDownloadInfoFile: "<entries>\n<millis>\n".
+  # %s000 avoids %N, which macOS date(1) lacks.
+  printf '%s\n%s000\n' "$(grep -c . "$LIST")" "$(date +%s)" > "$WORK/dld_cnt.txt"
+  "$ADB" -s "$SERIAL" push "$WORK/dld_cnt.txt" "$DIR/FILTERHOSTS.TXT.DLD_CNT" | tail -1 \
+    || die "push of FILTERHOSTS.TXT.DLD_CNT failed"
 fi
 
 acmd settings put secure always_on_vpn_app $PKG >/dev/null
