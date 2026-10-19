@@ -26,25 +26,26 @@ export const TAIL = FPS;
 
 // Acts: contiguous, bar-aligned, [from, from + dur). Each act is its own composition in Root.tsx.
 export const ACT = {
-  statement: { from: b(1), dur: b(5) - b(1) }, // the day, the people, and what they changed
-  mark: { from: b(5), dur: b(9) + TAIL - b(5) }, // what is left, and the lockup
+  statement: { from: b(1), dur: b(5) - b(1) }, // the command, and what it removed
+  mark: { from: b(5), dur: b(10) + TAIL - b(5) }, // what is left, and the lockup
 };
 
-export const TOTAL = b(9) + TAIL;
+export const TOTAL = b(10) + TAIL;
 
 // Named sync points (absolute frames), all on the 16th grid.
 export const CUE = {
-  open: b(1), // the screen draws itself
-  day: b(1, 0, 3), // "24 hours."
-  strangers: b(2), // "six strangers."
-  fixes: b(3), // "six fixes."
-  stars: b(4), // "309 stars."
-  settle: b(4, 3), // the last tiles leave: the picture beat under the quiet
-  ads: b(5), // "no ads."
-  shorts: b(6), // "no shorts."
-  yours: b(7), // "your tv."
-  lockup: b(8), // the wordmark
-  end: b(9), // hold
+  hook: b(1), // the command types itself, then runs
+  run: b(1, 3), // it executes: hit, and the television appears
+  day: b(2), // "65 packages."
+  hosts: b(3), // "396 hosts."
+  ads: b(4), // "no ads."
+  shorts: b(5), // "no shorts."
+  fixes: b(6), // "six fixes."
+  stars: b(7), // "330 stars."
+  flash: b(8, 2), // the accent flash, on the beat
+  yours: b(8), // "your tv."
+  lockup: b(9), // the wordmark
+  end: b(10), // hold
 };
 
 export type Copy = {
@@ -69,15 +70,22 @@ export const line = (id: string, text: string, inF: number, out?: number): Copy 
 
 /** Every on-screen word. Fragments are 2 words; the wordmark and URL are `ui`, counted apart. */
 export const COPY: Copy[] = [
-  line('day', '24 hours.', CUE.day, CUE.strangers - f60(30)),
-  line('strangers', 'six strangers.', CUE.strangers, CUE.fixes - f60(30)),
-  line('fixes', 'six fixes.', CUE.fixes, CUE.stars - f60(30)),
-  line('stars', '309 stars.', CUE.stars, CUE.stars + f60(80)),
+  { id: 'cmd', text: 'adb connect <your-tv>:5555', kind: 'ui', in: CUE.hook, resolved: CUE.hook + f60(46), out: CUE.run + f60(14) },
+  line('day', '65 packages.', CUE.day, CUE.hosts - f60(30)),
+  line('hosts', '396 hosts.', CUE.hosts, CUE.ads - f60(30)),
   line('ads', 'no ads.', CUE.ads, CUE.shorts - f60(30)),
-  line('shorts', 'no shorts.', CUE.shorts, CUE.yours - f60(30)),
+  line('shorts', 'no shorts.', CUE.shorts, CUE.fixes - f60(30)),
+  line('fixes', 'six fixes.', CUE.fixes, CUE.stars - f60(30)),
+  line('stars', '330 stars.', CUE.stars, CUE.yours - f60(30)),
   line('yours', 'your tv.', CUE.yours, CUE.lockup - f60(30)),
-  { id: 'wordmark', text: 'dumbtv', kind: 'ui', in: CUE.lockup, resolved: CUE.lockup + f60(28), out: TOTAL },
-  { id: 'url', text: 'github.com/humblemuzzu/dumbtv', kind: 'ui', in: CUE.lockup + f60(30), resolved: CUE.lockup + f60(46), out: TOTAL },
+  { id: 'wordmark', text: 'dumbtv', kind: 'ui', in: CUE.lockup, resolved: CUE.lockup + f60(26), out: TOTAL },
+  { id: 'url', text: 'github.com/humblemuzzu/dumbtv', kind: 'ui', in: CUE.lockup + f60(28), resolved: CUE.lockup + f60(44), out: TOTAL },
+  { id: 'chip1', text: 'pm disable-user → 65', kind: 'ui', in: CUE.day + f60(26), resolved: CUE.day + f60(40), out: CUE.hosts - f60(26) },
+  { id: 'chip2', text: 'softwareupdates → 127.0.0.1', kind: 'ui', in: CUE.hosts + f60(26), resolved: CUE.hosts + f60(44), out: CUE.ads - f60(26) },
+  { id: 'chip3', text: 'youtube: app replaced', kind: 'ui', in: CUE.ads + f60(24), resolved: CUE.ads + f60(40), out: CUE.shorts - f60(26) },
+  { id: 'chip4', text: 'shorts: everywhere', kind: 'ui', in: CUE.shorts + f60(24), resolved: CUE.shorts + f60(40), out: CUE.fixes - f60(26) },
+  { id: 'chip5', text: '6 pull requests, 6 people', kind: 'ui', in: CUE.fixes + f60(26), resolved: CUE.fixes + f60(44), out: CUE.stars - f60(26) },
+  { id: 'chip6', text: '30 forks, 10 minutes', kind: 'ui', in: CUE.stars + f60(26), resolved: CUE.stars + f60(44), out: CUE.yours - f60(26) },
 ];
 
 /** The reading windows of every COPY entry, for grid-check and the QA scripts. */

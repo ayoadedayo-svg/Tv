@@ -12,6 +12,12 @@ export const C = {
   mist: '#E7E9EC', // soft panels on paper
   line: '#2A2E36', // hairlines on ink
   tile: '#3A404A', // a tile's edge: just enough to read as content
+  // The four muted fills of the tiles: borrowed colours of app icons, quiet enough that they read
+  // as someone else's content rather than as the film's own palette.
+  t1: '#243B6B',
+  t2: '#25313C',
+  t3: '#1F4640',
+  t4: '#4A2B2B',
   mute: '#8A9099', // secondary text on ink
   white: '#FFFFFF',
   // The one accent, and what it means: "yours". It arrives only on the TV that is now the

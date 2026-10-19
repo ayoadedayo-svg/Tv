@@ -63,7 +63,7 @@ export const Screen: React.FC<{
           style={{
             width: '100%',
             height: '100%',
-            background: i % 5 === 0 ? C.line : C.ink2,
+            background: [C.t1, C.ink2, C.t2, C.ink2, C.t3, C.t4][i % 6],
             border: `${1 * U}px solid ${i % 3 === 0 ? C.tile : C.line}`,
             borderRadius: (b.hero ? 3 : 2) * U,
             opacity: b.hero ? 1 : 0.85,
