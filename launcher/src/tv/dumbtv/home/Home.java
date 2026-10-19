@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.media.tv.TvInputManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -118,7 +119,16 @@ public final class Home extends Activity {
             strip.setClipChildren(false);
             strip.setClipToPadding(false);
             strip.setPadding(bleed, dp(12), bleed, dp(8));
-            scroll = new HorizontalScrollView(Home.this);
+            scroll = new HorizontalScrollView(Home.this) {
+                /** Keeps the focused tile centered, except near either end of the row. */
+                @Override
+                protected int computeScrollDeltaToGetChildRectOnScreen(Rect r) {
+                    if (getChildCount() == 0) return 0;
+                    int range = Math.max(0, getChildAt(0).getWidth() - (getWidth() - getPaddingLeft() - getPaddingRight()));
+                    int target = Math.max(0, Math.min(range, r.centerX() - getWidth() / 2));
+                    return target - getScrollX();
+                }
+            };
             scroll.setFocusable(false);
             scroll.setHorizontalScrollBarEnabled(false);
             scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -279,6 +289,46 @@ public final class Home extends Activity {
         return super.onKeyDown(code, e);
     }
 
+    /**
+     * The scroll position for a focused rect {@code r}: the earliest of the top, the apps row or
+     * the inputs row that still shows the row holding {@code r} whole.
+     */
+    private int rowTarget(ScrollView page, Rect r) {
+        View content = page.getChildAt(0);
+        List<int[]> rows = new ArrayList<>();
+        for (Row row : new Row[] {apps, inputs}) {
+            if (row.scroll.getVisibility() != View.VISIBLE) continue;
+            rows.add(new int[] {topIn(row.title, content), topIn(row.scroll, content) + row.scroll.getHeight()});
+        }
+        int[] at = null;
+        for (int[] b : rows) {
+            if (r.centerY() >= b[0]) at = b;
+        }
+        if (at == null) return 0;
+        int height = page.getHeight(), target = at[0];
+        List<Integer> stops = new ArrayList<>();
+        stops.add(0);
+        for (int[] b : rows) stops.add(b[0]);
+        for (int stop : stops) {
+            if (stop <= at[0] && stop + height >= at[1]) {
+                target = stop;
+                break;
+            }
+        }
+        int range = Math.max(0, content.getHeight() - height);
+        return Math.max(0, Math.min(range, target));
+    }
+
+    /** {@code v}'s top edge in {@code content}'s coordinates. */
+    private static int topIn(View v, View content) {
+        int y = 0;
+        while (v != null && v != content) {
+            y += v.getTop();
+            v = (View) v.getParent();
+        }
+        return y;
+    }
+
     private View build() {
         root = new FrameLayout(this);
         wall = new ImageView(this);
@@ -287,7 +337,31 @@ public final class Home extends Activity {
         shade = new View(this);
         root.addView(shade, new FrameLayout.LayoutParams(MATCH, MATCH));
 
-        ScrollView scroll = new ScrollView(this);
+        ScrollView scroll = new ScrollView(this) {
+            /** Scrolls in whole rows: the focused row shows complete, and a row starts at the top edge. */
+            @Override
+            protected int computeScrollDeltaToGetChildRectOnScreen(Rect r) {
+                return rowTarget(this, r) - getScrollY();
+            }
+
+            /**
+             * Up and down only move the focus; scrolling follows it. Left to ScrollView, a press
+             * with nothing focusable that way scrolls half a screen and leaves rows cut.
+             */
+            @Override
+            public boolean executeKeyEvent(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.KEYCODE_DPAD_UP:
+                    case KeyEvent.KEYCODE_DPAD_DOWN:
+                    case KeyEvent.KEYCODE_PAGE_UP:
+                    case KeyEvent.KEYCODE_PAGE_DOWN:
+                    case KeyEvent.KEYCODE_SPACE:
+                        return false;
+                    default:
+                        return super.executeKeyEvent(e);
+                }
+            }
+        };
         scroll.setFocusable(false);
         scroll.setFillViewport(true);
         scroll.setVerticalScrollBarEnabled(false);
