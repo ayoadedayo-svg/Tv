@@ -39,8 +39,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public final class Home extends Activity {
     private static final int MATCH = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -138,6 +140,7 @@ public final class Home extends Activity {
     @Override
     protected void onCreate(Bundle state) {
         super.onCreate(state);
+        Future<List<Item>> catalog = io.submit(() -> Catalog.apps(this));
         cfg = Config.get(this);
         tv = (TvInputManager) getSystemService(Context.TV_INPUT_SERVICE);
         setContentView(build());
@@ -149,8 +152,33 @@ public final class Home extends Activity {
         f.addDataScheme("package");
         registerReceiver(packages, f);
         if (tv != null) tv.registerCallback(inputWatch, ui);
-        loadApps(null);
+        firstApps(catalog);
         loadInputs();
+    }
+
+    /**
+     * Waits for the app list and loads the art of the tiles that fit on screen, so the first
+     * frame is complete. After a cold start that frame is what people see first: loading in the
+     * background drew the Inputs row alone, focused HDMI 1 for ~0.3 s, then popped the apps and
+     * their banners in.
+     */
+    private void firstApps(Future<List<Item>> catalog) {
+        try {
+            apps.all = catalog.get();
+        } catch (ExecutionException e) {
+            loadApps(null);
+            return;
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            loadApps(null);
+            return;
+        }
+        int fit = getResources().getDisplayMetrics().widthPixels / (cardSize()[0] + dp(18)) + 1;
+        for (Item it : Catalog.visible(cfg, Catalog.APPS, apps.all)) {
+            if (fit-- <= 0) break;
+            Catalog.art(getPackageManager(), it);
+            it.artRequested = true;
+        }
     }
 
     @Override
