@@ -105,7 +105,7 @@ inputs=on
 background=black
 # 0 20 40 60 80, image background only
 dim=40
-# off visit hourly daily (visit = every return to the home screen)
+# off visit hourly daily daytime (visit = every return to the home screen)
 rotate=off
 apps.order=com.amazon.firetv.youtube,org.videolan.vlc
 apps.hide=org.videolan.vlc
@@ -126,6 +126,11 @@ pick a rotation; while that folder has images, `wallpaper.jpg` is ignored.
 adb shell mkdir -p /sdcard/Android/data/tv.dumbtv.home/files/wallpapers
 adb push *.jpg /sdcard/Android/data/tv.dumbtv.home/files/wallpapers/
 ```
+
+`rotate=daytime` matches wallpapers to the time of day: name a file with `morning` or `day`
+(06:00–13:00), `afternoon` or `evening` (13:00–20:00), or `night` (the rest), for example
+`morning-coast.jpg` or `night-city.jpg`. Several files for one period take turns on each
+return home. With no file named that way, the period simply picks one image of the folder.
 
 ## How HOME works on Fire OS
 
