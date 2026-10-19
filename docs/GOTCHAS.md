@@ -50,6 +50,23 @@ actually rebinds it. Force-stopping the launcher (`am force-stop tv.dumbtv.home`
 which any test harness and any APK update does) is enough to lose the binding:
 the setting still reads enabled, and HOME silently goes back to Amazon's home.
 
+**Enabled is not the same as bound.** `scripts/verify.sh` also reads
+`dumpsys accessibility` and looks for `dumbtv home button` in the current
+user's bound services. Android 9 labels this section `services`; newer builds
+use `Bound services`. A service appearing only under `Enabled services` or
+`Binding services` is not a running hook. Unknown dump formats fail verification
+instead of reporting success. These dumps expose labels rather than component
+IDs, so this check also requires the exact Guard component in the enabled list.
+It does not press HOME or prove the physical remote works.
+
+On the [TCL G08 build in the catalog](../catalog/devices/androidtv-tcl-g08.yaml),
+an enabled but unbound companion service was blocked by `TclAppBoot` with
+`callee doesn't have OP_AUTO_START permission`. Granting that app's `AUTO_START`
+app-op and rebinding its service resolved it, including after reboot. This is
+a TCL-specific observation, not a permission to grant on every TV. Preserve
+other enabled accessibility services when rebinding. The verifier only reports
+the failure; it never changes permissions or restarts services.
+
 **Amazon's home for ~5 s on every HOME press** means
 `alarm_manager_constants` lost `min_futurity=0` (an update or a settings reset).
 Check with `adb shell settings get global alarm_manager_constants` and re-run

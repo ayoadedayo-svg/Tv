@@ -5,6 +5,7 @@
 # Usage: ./scripts/verify.sh
 set -uo pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
+source "$ROOT/scripts/accessibility.sh"
 parse_flags "$@"
 need_device
 load_conf
@@ -37,29 +38,44 @@ fi
 
 home=$(dev 'dumpsys activity activities' | grep -m1 mResumedActivity | sed 's/.*u0 //;s/}.*//')
 wake=$(dev 'dumpsys power' | sed -n 's/.*mWakefulness=\([A-Za-z]*\).*/\1/p' | head -1)
-a11y=$(dev 'settings get secure enabled_accessibility_services' | tr -d '\r')
 alarms=$(dev 'settings get global alarm_manager_constants' | tr -d '\r')
-case $home in
-  *tv.dumbtv.home*)     home_state=ok ;;
-  *com.amazon.tv.launcher*) home_state=amazon ;;
-  *)                    home_state=other ;;
-esac
 if [[ $LAUNCHER == 0 ]]; then
   printf '%-10s %-38s %s\n' skip home "LAUNCHER=0, not checked"
-elif [[ $home_state == amazon && $a11y != *tv.dumbtv.home* ]]; then
-  # Amazon's home in front and no hook armed: the launcher really is gone.
-  printf '%-10s %-38s %s\n' FAIL home "${home:-unknown} (hook empty)"; fail=1
-elif [[ $a11y == *tv.dumbtv.home* ]]; then
-  # Hook armed: an app in the foreground is normal, HOME will land on dumbtv home.
-  printf '%-10s %-38s %s\n' ok home "armed, front is ${home:-unknown}"
+else
+  # An enabled setting can outlive the process/binding. Check the current user's
+  # exact component AND the live bound-service section, without sending HOME.
+  current_user=$(dev 'am get-current-user' | tr -d '\r')
+  hook=unknown
+  case $current_user in
+    ''|*[!0-9]*) ;;
+    *)
+      a11y=$(dev "settings --user $current_user get secure enabled_accessibility_services" | tr -d '\r')
+      enabled=$(dev "settings --user $current_user get secure accessibility_enabled" | tr -d '\r')
+      case :$a11y: in
+        *:tv.dumbtv.home/.Guard:*|*:tv.dumbtv.home/tv.dumbtv.home.Guard:*)
+          if [[ $enabled == 1 ]]; then
+            if dump=$(dev 'dumpsys accessibility'); then
+              printf '%s\n' "$dump" | guard_bound "$current_user"
+              case $? in 0) hook=bound ;; 1) hook=unbound ;; esac
+            fi
+          else
+            hook=disabled
+          fi ;;
+        *) hook=disabled ;;
+      esac ;;
+  esac
+  case $hook in
+    bound) printf '%-10s %-38s %s\n' ok home "bound, front is ${home:-unknown}" ;;
+    unbound)
+      printf '%-10s %-38s %s\n' FAIL home "enabled but not bound; see docs/GOTCHAS.md"; fail=1 ;;
+    disabled)
+      printf '%-10s %-38s %s\n' FAIL home "hook disabled (front: ${home:-unknown}, wakefulness: ${wake:-?})"; fail=1 ;;
+    *) printf '%-10s %-38s %s\n' FAIL home "cannot verify accessibility binding; inspect dumpsys accessibility"; fail=1 ;;
+  esac
   if [[ $alarms != *min_futurity=0* ]]; then
     # Without it HOME still works, but Amazon's home shows for 5 s first.
     printf '%-10s %-38s %s\n' FAIL home-speed "min_futurity=0 missing; re-run launcher.sh"; fail=1
   fi
-elif [[ $wake == Asleep ]]; then
-  printf '%-10s %-38s %s\n' FAIL home "asleep and no hook"; fail=1
-else
-  printf '%-10s %-38s %s\n' FAIL home "${home:-unknown} (wakefulness: ${wake:-?})"; fail=1
 fi
 
 printf '%-10s %-38s %s\n' packages "" "$(dev 'pm list packages -d' | wc -l | tr -d ' ') disabled"
